@@ -6,17 +6,34 @@ const scoreElement = document.querySelector('.score');
 const info = document.querySelector('.info');
 const gameover = document.querySelector('.gameover');
 
+let jogoIniciado = false;
+let jogoEncerrado = false;
+
 const puloAudio = new Audio('./assets/sounds/som-do-pulo-do-mario.mp3');
 puloAudio.playbackRate = 1.2;
 puloAudio.volume = 0.5; 
 
+const backgroundAudio = new Audio('./assets/sounds/background-mario.mp3');
+backgroundAudio.volume = 0.5; 
+
+const start = () => {
+    if (!jogoIniciado) {   
+        pipe.classList.remove('stop')
+        clouds.classList.remove('stop')
+        backgroundAudio.play()
+        mario.src = './assets/img/mario.gif';
+        jogoIniciado = true;
+    }
+}
+
 const jump = () => {
+    if (!jogoEncerrado) { 
     mario.classList.add('jump');
     info.classList.add('hidden');
     puloAudio.play();
     setTimeout(()=>{
         mario.classList.remove('jump');
-    }, 500);
+    }, 500); }
 }
 let pontos = 0 
 
@@ -47,7 +64,9 @@ const loop = setInterval(() => {
         button.classList.remove('hidden');
         gameover.classList.remove('hidden');
         puloAudio.volume = 0;
+        backgroundAudio.volume = 0;
         
+        jogoEncerrado = true;
         clearInterval(loop);
     } else if (pipePosition <= 0) {
         pontos++;
@@ -57,4 +76,8 @@ const loop = setInterval(() => {
 }, 10);
 
 document.addEventListener('keydown', jump);
+document.addEventListener('keydown', start);
+
+
 document.addEventListener('touchstart', jump);
+document.addEventListener('touchstart', start);

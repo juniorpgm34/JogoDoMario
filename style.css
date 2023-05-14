@@ -20,6 +20,7 @@
     bottom: 0;
     width: 80px;
     animation: pipe-animation 1.5s infinite linear;
+    right: -80px;
 }
 
 .mario {
@@ -36,7 +37,12 @@
     position: absolute;
     width: 550px;
     animation: clouds-animation 20s infinite linear;
+    right: -550px;
     z-index: 1;
+}
+
+.stop {
+    animation: none;
 }
 
 .button { 
